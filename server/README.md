@@ -6,6 +6,8 @@
 
 `POST` /rooms/checkout/:listingId
 
+`DELETE` /rooms/checkout/:listingId
+
 #### Parameters
 
 | Name | Type | Description |
