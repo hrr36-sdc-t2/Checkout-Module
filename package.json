@@ -13,7 +13,8 @@
     "server-dev": "nodemon server/index.js",
     "build-sass": "sass --watch client/styles:public/styles",
     "seed-db": "knex seed:run",
-    "migr-db": "knex migrate:latest"
+    "migr-db": "knex migrate:latest",
+    "mongo-seed": "node db/mongo/seed.js"
   },
   "jest": {
     "moduleNameMapper": {
@@ -38,6 +39,7 @@
     "knex": "^0.16.3",
     "moment": "^2.24.0",
     "moment-range": "^4.0.1",
+    "mongoose": "^5.4.16",
     "mysql2": "^1.6.5",
     "node-sass": "^4.11.0",
     "react": "^16.8.1",
