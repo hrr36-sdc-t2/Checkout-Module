@@ -36,8 +36,5 @@ bower_components/
 
 #
 .circleci
-db
 client
-db
 public
-knexfile.js
