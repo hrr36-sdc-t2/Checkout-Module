@@ -1,40 +1,30 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const db = require('./db');
-// const postgres = require('../db/query.js');
+const
+  cluster = require('cluster'),
+  cpus = require('os').cpus().length,
+  startProcess = require('./server.js');
 
-let app = express();
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/rooms/:listingId', express.static(__dirname + '/../public'));
+switch (cluster.isMaster) {
+  case true: distributeProcess(); break;
+  case false:
+  default: startProcess();
+}
 
-let port = 3000;
+function distributeProcess() {
+  let
+    workers = [],
+    clust = 1;
+  console.log('cpus ', cpus)
+  for (let i = 0; i < clust; i++) {
+    createClust(i);
+  }
 
-// calls getUsers to query the db with a variable listingId and returns the entry that matchs the params
-app.get('/rooms/checkout/:listingId', (req, res) => {
-  db.getRoom(req.params.listingId).then(records => {
-    console.log('server get listings: ', records);
-    res.send(records);
-  });
-});
+  function createClust(i) {
+    workers[i] = cluster.fork();
+    workers[i]
+      .on('exit', () => {
+        console.log('cluster exited and re-created', i);
+        createClust(i);
+      });
+  }
 
-app.get('/rooms/bookings/:listingId', (req, res) => {
-  db.getBookings(req.params.listingId).then(records => {
-    console.log('server get bookings: ', records);
-    res.send(records);
-  });
-});
-
-app.post('/rooms/checkout/:listingId', (req, res) => {
-  console.log(req.body);
-  db.bookRoom(req.params.listingId, req.body)
-    .then(() => {
-      res.end();
-    });
-});
-
-var server = app.listen(port, function() {
-  console.log(`listening on post ${port}`);
-});
-
-module.exports = server;
+}
