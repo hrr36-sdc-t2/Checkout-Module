@@ -4,10 +4,9 @@
 
 ## Related Projects
 
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
-  - https://github.com/teamName/repo
+  - https://github.com/hrr36-sdc-t2/Checkout-Module
+  - https://github.com/hrr36-sdc-t2/Eliana-Scaled-Reviews-Module
+  - https://github.com/hrr36-sdc-t2/pl61-thomas-hsu-slideshow-module
 
 ## Table of Contents
 
@@ -33,7 +32,8 @@ An `nvmrc` file is included if using [nvm](https://github.com/creationix/nvm).
 From within the root directory:
 
 ```sh
-npm install -g webpack
 npm install
+npm run mongo-seed
+npm run server
 ```
 
