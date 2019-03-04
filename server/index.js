@@ -12,7 +12,7 @@ switch (cluster.isMaster) {
 function distributeProcess() {
   let
     workers = [],
-    clust = 1;
+    clust = 2;
   console.log('cpus ', cpus)
   for (let i = 0; i < clust; i++) {
     createClust(i);

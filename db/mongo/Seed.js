@@ -89,11 +89,14 @@ const createFakeBookings = () => {
   }
 }
 
-const desiredFakeData = 10000000;
+const desiredFakeData = 1000000;
+const desiredFakBookings = 10000000;
 const loopCount = desiredFakeData / 20;
+const bookLoop = desiredFakBookings / 20;
 
 mongoose
-  .connect('mongodb://192.168.99.100:27017/hrr', { useNewUrlParser: true, poolSize: 10 })
+  // .connect('mongodb://192.168.99.100:27017/hrr', { useNewUrlParser: true, poolSize: 10 })
+  .connect('mongodb://34.222.241.240:27017/hrr', { useNewUrlParser: true, poolSize: 10 })
   .then(async () => {
     console.log('mongodb connected');
     let startDT = new Date(Date.now())
@@ -103,18 +106,20 @@ mongoose
         fakeData.push(createFakeData());
       }
       await Listing.insertMany(fakeData);
+      console.log(i, 'batch of listings inserted out of', loopCount);
       if (i === loopCount - 1) {
-        console.log(Date.now() - startDT, 'ms - listing insert time from seed invocation')
+        console.log(Date.now() - startDT, 'ms - listing insert time from seed invocation');
       }
     }
-    for (let i = 0; i < loopCount; i++) {
+    for (let i = 0; i < bookLoop; i++) {
       let fakeBookings = [];
       for (let i = 0; i < 20; i++) {
         fakeBookings.push(createFakeBookings());
       }
       await Booking.insertMany(fakeBookings);
-      if (i === loopCount - 1) {
-        console.log(Date.now() - startDT, 'ms - booking insert time from seed invocation')
+      console.log(i, 'batch of bookings inserted out of', bookLoop);
+      if (i === bookLoop - 1) {
+        console.log(Date.now() - startDT, 'ms - booking insert time from seed invocation');
       }
     }
   })

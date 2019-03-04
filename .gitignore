@@ -36,6 +36,10 @@ bower_components/
 
 #
 .circleci
+
 Artillery.yml
-server
+docker-compose.yml
+Dockerfile
+nodemon.json
+public/loaderio-7d6fb933c6d744614ca6a35ada551a94.txt
 
